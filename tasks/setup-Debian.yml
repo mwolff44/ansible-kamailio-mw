@@ -2,8 +2,7 @@
 
 - name: Add kamailio Repo Signing key
   apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 0xfb40d3e6508ea4c8
+    url: http://deb.kamailio.org/kamailiodebkey.gpg
     state: present
 
 - name: Add kamailio apt repository (Debian 8/Jessie)

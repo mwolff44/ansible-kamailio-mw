@@ -40,7 +40,6 @@ kamailio_packages:
     - kamailio
     - kamailio-extra-modules
     - kamailio-postgres-modules
-    - kamailio-tls-modules
 
 # Fail2ban
 fail2ban_install: False
