@@ -1,0 +1,109 @@
+# tasks file for Debian flavour
+
+- name: Add kamailio Repo Signing key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 0xfb40d3e6508ea4c8
+    state: present
+
+- name: Add kamailio apt repository (Debian 8/Jessie)
+  apt_repository:
+    repo: deb http://deb.kamailio.org/kamailio{{ kamailio_version }} jessie main
+    state: present
+    filename: 'kamailio'
+
+- name: Add kamailio apt source repository (Debian 8/Jessie)
+  apt_repository:
+    repo: deb-src http://deb.kamailio.org/kamailio{{ kamailio_version }} jessie main
+    state: present
+    filename: 'kamailio'
+
+- name: Update APT Cache
+  apt: update_cache=yes
+
+- name: Ensure tzdata is installed
+  apt: name=tzdata state=latest
+  when: ntp_install
+
+### source of systemd-timesynd : https://github.com/debops/ansible-ntp
+- name: Ensure that alternative daemons/programs are not installed
+  apt:
+    name: '{{ item }}'
+    state: absent
+    purge: True
+  with_flattened:
+    - ntpdate
+    - ntp
+    - openntpd
+  when: ntp_install
+
+- name: Manage systemd-timesyncd state
+  service:
+    name: 'systemd-timesyncd'
+    state: started
+    enabled: True
+  when: ntp_install
+
+# Configure systemd-timesyncd
+- name: Include systemd-timesyncd configuration
+  include: systemd-timesyncd.yml
+  when: ntp_install
+
+- name: Timezone configuration
+  include: timezone.yml
+  when: (ntp_timezone|d() and ntp_install)
+
+# Install unbound
+- name: Include unbound installation / configuration
+  include: unbound.yml
+  when: unbound_install
+
+# Install kamailio
+- name: Install kamailio
+  apt: name={{ item }} state=latest
+  with_items: "{{ kamailio_packages }}"
+
+- name: Backup kamailio configuration files.
+  copy:
+    src: "{{ kamailio_conf_dir }}"
+    dest: "{{ kamailio_conf_backup_dir }}"
+  when : kamailio_install_conf
+
+- name: Copy kamailio configuration files.
+  copy:
+    src: "{{ kamailio_config_template_dir }}"
+    dest: "{{ kamailio_conf_dir }}"
+  when: kamailio_install_conf
+
+- name: Make sure kamailio is started and configure it to run at boot.
+  service: name=kamailio state=started enabled=yes
+
+# Fail2ban To be adapted
+- name: install fail2ban
+  apt: name=fail2ban state=latest
+  when: fail2ban_install == true
+
+- copy: src={{ fail2ban_local_jail }} dest={{ fail2ban_local_jail_file }}
+  when: fail2ban_install == true
+- copy: src={{ fail2ban_fs }} dest={{ fail2ban_filter_dir }}/fkamailio.conf
+  when: fail2ban_install == true
+- copy: src={{ fail2ban_dos_fs }} dest={{ fail2ban_filter_dir }}/kamailio-dos.conf
+  when: fail2ban_install == true
+
+# monit
+
+# munin
+- name: check if munin-node is installed
+  apt: name=munin-node state=latest
+  register: apt_munin_node_check
+  ignore_errors: yes
+  when: munin_node_install
+
+- include: munin-plugin.yml
+  when: munin_node_install
+
+# sngrep
+- name: Sngrep installation process
+  include: sngrep.yml
+  when: sngrep_install
+

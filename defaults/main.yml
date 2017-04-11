@@ -1,0 +1,61 @@
+---
+# ntp
+ntp_install: False
+ntp_servers: '{{ ntp_servers_map[ansible_distribution]
+                  | d(ntp_servers_map["default"]) }}'
+ntp_servers_map:
+  'Debian':  [ '0.debian.pool.ntp.org', '1.debian.pool.ntp.org',
+               '2.debian.pool.ntp.org', '3.debian.pool.ntp.org' ]
+  'Ubuntu':  [ '0.ubuntu.pool.ntp.org', '1.ubuntu.pool.ntp.org',
+               '2.ubuntu.pool.ntp.org', '3.ubuntu.pool.ntp.org' ]
+  'default': [ '0.pool.ntp.org', '1.pool.ntp.org',
+               '2.pool.ntp.org', '3.pool.ntp.org' ]
+ntp_timezone: 'Europe/Paris'
+ntp_timesyncd_template : ../templates/etc/systemd/timesyncd.conf.d/ansible.conf.j2
+
+# dns local
+unbound_install: False
+unbound_config_do_ip4: "yes"
+unbound_config_do_ip6: "no"
+unbound_interfacess:
+  - 127.0.0.1
+unbound_listen_port: 53
+dns_tcp: False
+dns_servers: 'OpenDNS'
+dns_servers_map:
+  'Google':  [ '8.8.8.8', '8.8.4.4']
+  'FreeDNS':  [ '37.235.1.174', '37.235.1.177']
+  'OpenNIC': [ '50.116.2.211']
+  'Verisign':  [ '64.6.64.6', '64.6.65.6']
+  'DNSWatch':  [ '84.200.69.80', '84.200.70.40']
+  'OpenDNS':  [ '208.67.222.220', '208.67.222.222']
+
+# Kamailio
+kamailio_version: 50 # Kamailio version 5.0 . for 4.4 enter 44 and for 4.4 enter 43
+kamailio_conf_dir: '/etc/kamailio' # Configuration directory
+kamailio_install_conf: False # Allow the installation of the configuration files - Could be disabled when updating
+kamailio_conf_backup_dir: '/etc/kamailio.orig' # Backup configuration directory
+kamailio_config_template_dir: ../templates/config/ # Templates directory used for kamailio configuration
+kamailio_packages:
+    - kamailio
+    - kamailio-extra-modules
+    - kamailio-postgres-modules
+    - kamailio-tls-modules
+
+# Fail2ban
+fail2ban_install: False
+fail2ban_local_jail_file: /etc/fail2ban/jail.local # fail2ban jail file for kamailio
+fail2ban_filter_dir: /etc/fail2ban/filter.d # fail2ban filter directory
+fail2ban_local_jail: ../templates/fail2ban/jail.local # fail2ban template jail for kamailio
+fail2ban_fs: ../templates/fail2ban/kamailio.conf # Fail2ban filter template for kamailio
+fail2ban_dos_fs: ../templates/fail2ban/kamailio-dos.conf # Fail2ban filter template for kamailio dos
+
+# Monit
+monit_install: False
+
+# Munin
+munin_node_install: False
+munin_install: False
+
+# sngrep
+sngrep_install: False
