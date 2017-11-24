@@ -12,5 +12,6 @@ galaxy_info:
   galaxy_tags:
   - system
   - voip
+  - kamailio
 
-dependencies: []  
+dependencies: []
