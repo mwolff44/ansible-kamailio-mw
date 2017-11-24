@@ -24,6 +24,14 @@
   apt: name=tzdata state=latest
   when: ntp_install
 
+- name: Install tool-packages
+  apt: state=present pkg={{ item }}
+  with_items:
+  - tcpdump
+  - iftop
+  - htop
+  - python-pip
+
 ### source of systemd-timesynd : https://github.com/debops/ansible-ntp
 - name: Ensure that alternative daemons/programs are not installed
   apt:
@@ -45,16 +53,16 @@
 
 # Configure systemd-timesyncd
 - name: Include systemd-timesyncd configuration
-  include: systemd-timesyncd.yml
+  include_tasks: systemd-timesyncd.yml
   when: ntp_install
 
 - name: Timezone configuration
-  include: timezone.yml
+  include_tasks: timezone.yml
   when: (ntp_timezone|d() and ntp_install)
 
 # Install unbound
 - name: Include unbound installation / configuration
-  include: unbound.yml
+  include_tasks: unbound.yml
   when: unbound_install
 
 # Install kamailio
@@ -69,13 +77,31 @@
   when : kamailio_install_conf
 
 - name: Copy kamailio configuration files.
-  copy:
-    src: "{{ kamailio_config_template_dir }}"
-    dest: "{{ kamailio_conf_dir }}"
+  template:
+    src: "{{ kamailio_config_template_dir }}/{{ item }}.j2"
+    dest: "{{ kamailio_conf_dir }}/{{ item }}"
+  with_items: "{{ kamailio_config_files }}"
+  notify: Restart kamailio
   when: kamailio_install_conf
 
 - name: Make sure kamailio is started and configure it to run at boot.
   service: name=kamailio state=started enabled=yes
+
+- name: Install pexpect
+  pip:
+    name: pexpect
+  when: kamailio_create_db
+
+- name: Create Kamailio DB using kamdbctl create
+  delegate_to: "{{ kamailio_creatordb_host }}"
+  expect:
+    command: kamdbctl create
+    responses:
+        password: "{{ kamailio_db_root_pass }}"
+        (?i)Install: "y"
+  run_once: true
+  notify: Restart kamailio
+  when: kamailio_create_db
 
 # Fail2ban To be adapted
 - name: install fail2ban
@@ -83,10 +109,11 @@
   when: fail2ban_install == true
 
 - copy: src={{ fail2ban_local_jail }} dest={{ fail2ban_local_jail_file }}
+  notify: Restart fail2ban
   when: fail2ban_install == true
-- copy: src={{ fail2ban_fs }} dest={{ fail2ban_filter_dir }}/fkamailio.conf
-  when: fail2ban_install == true
-- copy: src={{ fail2ban_dos_fs }} dest={{ fail2ban_filter_dir }}/kamailio-dos.conf
+
+- copy: src={{ fail2ban_kam }} dest={{ fail2ban_filter_dir }}/kamailio.conf
+  notify: Restart fail2ban
   when: fail2ban_install == true
 
 # monit
@@ -98,11 +125,11 @@
   ignore_errors: yes
   when: munin_node_install
 
-- include: munin-plugin.yml
+- include_tasks: munin-plugin.yml
   when: munin_node_install
 
 # sngrep
 - name: Sngrep installation process
-  include: sngrep.yml
+  include_tasks: sngrep.yml
   when: sngrep_install
 

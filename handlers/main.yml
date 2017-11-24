@@ -1,10 +1,15 @@
 ---
 # handlers file
 
-- name: restart kamailio
-  service: name=kamailio state=restarted
+- name: Restart kamailio
+  service:
+    name: 'kamailio'
+    state: 'restarted'
+    enabled: yes
+  become: yes
+  when: kamailio_restart
 
-- name: restart fail2ban
+- name: Restart fail2ban
   service: name=fail2ban state=restarted
   when: fail2ban_install == true
 
