@@ -1,0 +1,9 @@
+findtime  = 600
+
+[kamailio-iptables]
+enabled  = true
+filter   = kamailio
+action   = iptables-allports[name=KAMAILIO, protocol=all]
+logpath  = /var/log/kamailio.log # update it with your kamailio log path
+maxretry = 10
+bantime  = 1800
