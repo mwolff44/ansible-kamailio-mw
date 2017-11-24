@@ -129,6 +129,13 @@ License
 Licensed under the GPL v3 license. See the LICENSE file for details.
 
 
+Issue
+-----
+
+
+The project is managed via github. To open a new issue : [https://github.com/mwolff44/kamailio-mw/issues]
+
+
 Author Information
 ------------------
 
