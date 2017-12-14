@@ -70,16 +70,11 @@
   apt: name={{ item }} state=latest
   with_items: "{{ kamailio_packages }}"
 
-- name: Backup kamailio configuration files.
-  copy:
-    src: "{{ kamailio_conf_dir }}"
-    dest: "{{ kamailio_conf_backup_dir }}"
-  when : kamailio_install_conf
-
 - name: Copy kamailio configuration files.
   template:
     src: "{{ kamailio_config_template_dir }}/{{ item }}.j2"
     dest: "{{ kamailio_conf_dir }}/{{ item }}"
+    backup: yes
   with_items: "{{ kamailio_config_files }}"
   notify: Restart kamailio
   when: kamailio_install_conf
