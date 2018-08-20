@@ -2,18 +2,18 @@
 
 - name: Add kamailio Repo Signing key
   apt_key:
-    url: http://deb.kamailio.org/kamailiodebkey.gpg
+    url: {{ kamailio_repo }}/{{ kamailio_repo_keyname }}
     state: present
 
 - name: Add kamailio apt repository (Debian 8/Jessie)
   apt_repository:
-    repo: deb http://deb.kamailio.org/kamailio{{ kamailio_version }} jessie main
+    repo: deb {{ kamailio_repo }}{{ kamailio_version }} jessie main
     state: present
     filename: 'kamailio'
 
 - name: Add kamailio apt source repository (Debian 8/Jessie)
   apt_repository:
-    repo: deb-src http://deb.kamailio.org/kamailio{{ kamailio_version }} jessie main
+    repo: deb-src {{ kamailio_repo }}{{ kamailio_version }} jessie main
     state: present
     filename: 'kamailio'
 

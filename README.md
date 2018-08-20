@@ -33,6 +33,8 @@ The role variables and default values.
 ### Kamailio
 
     kamailio_version: 50 # Kamailio version 5.0 . for 4.4 enter 44 and for 4.4 enter 43
+    kamailio_repo: 'http://deb.kamailio.org/kamailio' # Default repository
+    kamailio_repo_keyname: 'kamailiodebkey.gpg' # Key name of the repo
     kamailio_conf_dir: '/etc/kamailio' # Configuration directory
     kamailio_install_conf: False # Allow the installation of the configuration files - Could be disabled when updating
     kamailio_conf_backup_dir: '/etc/kamailio.orig' # Backup configuration directory
