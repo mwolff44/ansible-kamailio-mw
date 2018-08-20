@@ -7,13 +7,13 @@
 
 - name: Add kamailio apt repository (Debian 8/Jessie)
   apt_repository:
-    repo: deb {{ kamailio_repo }}{{ kamailio_version }} jessie main
+    repo: deb {{ kamailio_repo }}{{ kamailio_version }} {{ debian_version }} main
     state: present
     filename: 'kamailio'
 
 - name: Add kamailio apt source repository (Debian 8/Jessie)
   apt_repository:
-    repo: deb-src {{ kamailio_repo }}{{ kamailio_version }} jessie main
+    repo: deb-src {{ kamailio_repo }}{{ kamailio_version }} {{ debian_version }} main
     state: present
     filename: 'kamailio'
 

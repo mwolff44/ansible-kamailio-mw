@@ -1,4 +1,7 @@
 ---
+# debian
+debian_version: stretch
+
 # ntp
 ntp_install: False
 ntp_servers: '{{ ntp_servers_map[ansible_distribution]

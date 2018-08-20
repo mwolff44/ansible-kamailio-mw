@@ -1,8 +1,13 @@
 Changelog
 =========
 
-- v1.2
+v1.3
+----
 Add variabled to manage kamailio repo
+
+v1.2
+----
+Add Debian Stertch support
 
 v1.1
 ----
