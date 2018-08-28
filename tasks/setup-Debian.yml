@@ -82,21 +82,34 @@
 - name: Make sure kamailio is started and configure it to run at boot.
   service: name=kamailio state=started enabled=yes
 
+- name: Inject PGSQL password
+  delegate_to: "{{ kamailio_creatordb_host }}"
+  template:
+    src: templates/pgpass
+    dest: ~/.pgpass
+    mode: 0600
+  when: kamailio_create_db and kamailio_db_engine == 'PGSQL'
+- name: Create Kamailio DB using kamdbctl create
+  delegate_to: "{{ kamailio_creatordb_host }}"
+  command: kamdbctl create
+  run_once: true
+  notify: Restart kamailio
+  when: kamailio_create_db and kamailio_db_engine == 'PGSQL'
+
 - name: Install pexpect
   pip:
     name: pexpect
-  when: kamailio_create_db
-
+  when: kamailio_create_db and kamailio_db_engine == 'MYSQL'
 - name: Create Kamailio DB using kamdbctl create
   delegate_to: "{{ kamailio_creatordb_host }}"
   expect:
     command: kamdbctl create
     responses:
-        password: "{{ kamailio_db_root_pass }}"
-        (?i)Install: "y"
+      password: "{{ kamailio_db_root_pass }}"
+      (?i)Install: "y"
   run_once: true
   notify: Restart kamailio
-  when: kamailio_create_db
+  when: kamailio_create_db and kamailio_db_engine == 'MYSQL'
 
 # Fail2ban To be adapted
 - name: install fail2ban
