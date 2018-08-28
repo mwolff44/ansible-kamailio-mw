@@ -36,6 +36,7 @@ dns_servers_map:
   'OpenDNS':  [ '208.67.222.220', '208.67.222.222']
 
 # Kamailio
+kamailio_manage_repo: True
 kamailio_version: 50 # Kamailio version 5.0 . for 4.4 enter 44 and for 4.4 enter 43
 kamailio_repo: 'http://deb.kamailio.org/kamailio'
 kamailio_repo_keyname: 'kamailiodebkey.gpg'
