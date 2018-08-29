@@ -1,7 +1,18 @@
 Changelog
 =========
 
-v1.3
+v1.4.0
+---
+debian: add condition to leave APT config alone
+Add option to manage PGSQL or MYSL tables creation
+Add option to disable repo initiation
+Bug correction when use repo others than kamailio ones
+
+v1.3.1
+---
+Bug correction : test correctly stretch version
+
+v1.3.0
 ----
 Add variabled to manage kamailio repo
 
