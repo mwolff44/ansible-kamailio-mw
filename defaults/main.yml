@@ -66,8 +66,8 @@ kamailio_db_root_pass: 'root' # root user password of DB
 kamailio_db_name: 'kamailio'
 kamailio_db_user: 'kamailio'
 kamailio_db_pass: 'kamailiopass'
-kamailio_db_user_ro: 'kamailio' # readonly user
-kamailio_db_pass_ro: 'kamailiopass' # readonly pass
+kamailio_db_user_ro: 'kamailioro' # readonly user
+kamailio_db_pass_ro: 'kamailioropass' # readonly pass
 kamailio_rpcfifo_path: '/var/run/kamailio/kamailio_rpc_fifo'
 
 # Fail2ban
