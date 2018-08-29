@@ -33,6 +33,7 @@ The role variables and default values.
 ### Kamailio
 
     debian_version: stretch # debian version - tested with jessie and stretch
+    kamailio_manage_repo: True  # when False, leave APT config untouched
     kamailio_version: 50 # Kamailio version 5.0 . for 4.4 enter 44 and for 4.4 enter 43
     kamailio_repo: 'http://deb.kamailio.org/kamailio' # Default repository
     kamailio_repo_keyname: 'kamailiodebkey.gpg' # Key name of the repo

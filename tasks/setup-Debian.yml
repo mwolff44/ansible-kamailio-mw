@@ -4,21 +4,25 @@
   apt_key:
     url: "{{ kamailio_repo_key_url }}"
     state: present
+  when: kamailio_manage_repo
 
 - name: Add kamailio apt repository (Debian 8/Jessie)
   apt_repository:
     repo: deb {{ kamailio_repo }}{{ kamailio_version }} {{ debian_version }} main
     state: present
     filename: 'kamailio'
+  when: kamailio_manage_repo
 
 - name: Add kamailio apt source repository (Debian 8/Jessie)
   apt_repository:
     repo: deb-src {{ kamailio_repo }}{{ kamailio_version }} {{ debian_version }} main
     state: present
     filename: 'kamailio'
+  when: kamailio_manage_repo
 
 - name: Update APT Cache
   apt: update_cache=yes
+  when: kamailio_manage_repo
 
 - name: Ensure tzdata is installed
   apt: name=tzdata state=latest
