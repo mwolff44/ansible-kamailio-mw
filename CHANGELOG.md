@@ -1,7 +1,7 @@
 Changelog
 =========
 
-v1.4.0
+v1.3.2
 ---
 debian: add condition to leave APT config alone
 Add option to manage PGSQL or MYSL tables creation
