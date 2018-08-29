@@ -2,7 +2,7 @@
 
 - name: Add kamailio Repo Signing key
   apt_key:
-    url: {{ kamailio_repo }}/{{ kamailio_repo_keyname }}
+    url: "{{ kamailio_repo_key_url }}"
     state: present
 
 - name: Add kamailio apt repository (Debian 8/Jessie)
