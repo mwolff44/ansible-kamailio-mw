@@ -84,7 +84,7 @@
   when: kamailio_install_conf
 
 - name: Make sure kamailio is started and configure it to run at boot.
-  service: name=kamailio state=started enabled=yes
+  service: name=kamailio enabled=yes
 
 - name: Inject PGSQL password
   delegate_to: "{{ kamailio_creatordb_host }}"
