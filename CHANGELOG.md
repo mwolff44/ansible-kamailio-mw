@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.3.3
+---
+Remove started in kamailio service initialisation (could block the process if the conf files are wrong)
+
 v1.3.2
 ---
 debian: add condition to leave APT config alone
