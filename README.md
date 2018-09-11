@@ -2,7 +2,7 @@ kamailio-mw
 =============
 
 [![Build Status](https://travis-ci.org/mwolff44/kamailio-mw.png)](https://travis-ci.org/mwolff44/kamailio-mw)
-[![Galaxy](http://img.shields.io/badge/galaxy-mwolff44.kamailio-mw-blue.svg?style=flat-square)](https://galaxy.ansible.com/mwolff44/kamailio-mw)
+[![Galaxy](http://img.shields.io/badge/galaxy-mwolff44.kamailio--mw-blue.svg?style=flat-square)](https://galaxy.ansible.com/mwolff44/kamailio-mw)
 
 
 Ansible role for Kamailio
