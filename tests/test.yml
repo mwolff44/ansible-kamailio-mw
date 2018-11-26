@@ -14,4 +14,4 @@
 
 
   roles:
-    - ../kamailio-mw
+    - ../ansible-kamailio-mw
