@@ -1,4 +1,10 @@
-# tasks file for Debian flavour
+---
+- name: Install gpg package
+  apt:
+    name: gnupg
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
 
 - name: Add kamailio Repo Signing key
   apt_key:
@@ -6,14 +12,14 @@
     state: present
   when: kamailio_manage_repo
 
-- name: Add kamailio apt repository (Debian 8/Jessie)
+- name: Add kamailio apt repository
   apt_repository:
     repo: deb {{ kamailio_repo }}{{ kamailio_version }} {{ debian_version }} main
     state: present
     filename: 'kamailio'
   when: kamailio_manage_repo
 
-- name: Add kamailio apt source repository (Debian 8/Jessie)
+- name: Add kamailio apt source repository
   apt_repository:
     repo: deb-src {{ kamailio_repo }}{{ kamailio_version }} {{ debian_version }} main
     state: present
@@ -24,61 +30,17 @@
   apt: update_cache=yes
   when: kamailio_manage_repo
 
-- name: Ensure tzdata is installed
-  apt: name=tzdata state=latest
-  when: ntp_install
-
-- name: Install tool-packages
-  apt: state=present pkg={{ item }}
-  with_items:
-  - tcpdump
-  - iftop
-  - htop
-  - python-pip
-
-### source of systemd-timesynd : https://github.com/debops/ansible-ntp
-- name: Ensure that alternative daemons/programs are not installed
-  apt:
-    name: '{{ item }}'
-    state: absent
-    purge: True
-  with_flattened:
-    - ntpdate
-    - ntp
-    - openntpd
-  when: ntp_install
-
-- name: Manage systemd-timesyncd state
-  service:
-    name: 'systemd-timesyncd'
-    state: started
-    enabled: True
-  when: ntp_install
-
-# Configure systemd-timesyncd
-- name: Include systemd-timesyncd configuration
-  include_tasks: systemd-timesyncd.yml
-  when: ntp_install
-
-- name: Timezone configuration
-  include_tasks: timezone.yml
-  when: (ntp_timezone|d() and ntp_install)
-
-# Install unbound
-- name: Include unbound installation / configuration
-  include_tasks: unbound.yml
-  when: unbound_install
-
-# Install kamailio
 - name: Install kamailio
-  apt: name={{ item }} state=latest
-  with_items: "{{ kamailio_packages }}"
+  apt:
+    name: "{{ kamailio_packages }}"
+    state: latest
+  notify: Restart kamailio
 
 - name: Copy kamailio configuration files.
   template:
     src: "{{ kamailio_config_template_dir }}/{{ item }}.j2"
     dest: "{{ kamailio_conf_dir }}/{{ item }}"
-    backup: yes
+    backup: true
   with_items: "{{ kamailio_config_files }}"
   notify: Restart kamailio
   when: kamailio_install_conf
@@ -93,6 +55,7 @@
     dest: ~/.pgpass
     mode: 0600
   when: kamailio_create_db and kamailio_db_engine == 'PGSQL'
+
 - name: Create Kamailio DB using kamdbctl create
   delegate_to: "{{ kamailio_creatordb_host }}"
   command: kamdbctl create
@@ -104,6 +67,7 @@
   pip:
     name: pexpect
   when: kamailio_create_db and kamailio_db_engine == 'MYSQL'
+
 - name: Create Kamailio DB using kamdbctl create
   delegate_to: "{{ kamailio_creatordb_host }}"
   expect:
@@ -114,34 +78,3 @@
   run_once: true
   notify: Restart kamailio
   when: kamailio_create_db and kamailio_db_engine == 'MYSQL'
-
-# Fail2ban To be adapted
-- name: install fail2ban
-  apt: name=fail2ban state=latest
-  when: fail2ban_install == true
-
-- copy: src={{ fail2ban_local_jail }} dest={{ fail2ban_local_jail_file }}
-  notify: Restart fail2ban
-  when: fail2ban_install == true
-
-- copy: src={{ fail2ban_kam }} dest={{ fail2ban_filter_dir }}/kamailio.conf
-  notify: Restart fail2ban
-  when: fail2ban_install == true
-
-# monit
-
-# munin
-- name: check if munin-node is installed
-  apt: name=munin-node state=latest
-  register: apt_munin_node_check
-  ignore_errors: yes
-  when: munin_node_install
-
-- include_tasks: munin-plugin.yml
-  when: munin_node_install
-
-# sngrep
-- name: Sngrep installation process
-  include_tasks: sngrep.yml
-  when: sngrep_install
-

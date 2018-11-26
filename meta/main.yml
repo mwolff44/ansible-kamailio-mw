@@ -1,18 +1,21 @@
 ---
+
+allow_duplicates: false
+
 galaxy_info:
   author: Mathias WOLFF
-  description: Kamailio installation and management
-  company: CELEA Consulting
-  license: MIT
-  min_ansible_version: 2.4
+  description: Ansible role for kamailio, the great SIP proxy
+  company: Celea Consulting
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.7
   platforms:
-  - name: Debian
-    versions:
-    - jessie
-    - stretch
+    - name: Debian
+      versions:
+        - stretch
   galaxy_tags:
-  - system
-  - voip
-  - kamailio
+    - system
+    - voip
+    - kamailio
+    - sip
 
 dependencies: []
