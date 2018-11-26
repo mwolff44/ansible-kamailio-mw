@@ -2,8 +2,10 @@ kamailio-mw
 =============
 
 [![Build Status](https://travis-ci.org/mwolff44/ansible-kamailio-mw.png)](https://travis-ci.org/mwolff44/ansible-kamailio-mw)
-[![Galaxy](http://img.shields.io/badge/galaxy-mwolff44.ansible-kamailio-mw-blue.svg?style=flat-square)](https://galaxy.ansible.com/mwolff44/ansible-kamailio-mw)
-[![LICENSE](https://img.shields.io/badge/license-MIT-brightgreen.svg)]
+![Ansible Role](https://img.shields.io/ansible/role/:roleId.svg)
+![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
+![Ansible Role](https://img.shields.io/ansible/role/d/:roleId.svg)
+![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg)
 
 Ansible role for Kamailio (kamailio version >= 5.0)
 
