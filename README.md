@@ -1,8 +1,8 @@
 kamailio-mw
 =============
 
-[![Build Status](https://travis-ci.org/mwolff44/kamailio-mw.png)](https://travis-ci.org/mwolff44/kamailio-mw)
-[![Galaxy](http://img.shields.io/badge/galaxy-mwolff44.kamailio--mw-blue.svg?style=flat-square)](https://galaxy.ansible.com/mwolff44/kamailio-mw)
+[![Build Status](https://travis-ci.org/mwolff44/ansible-kamailio-mw.png)](https://travis-ci.org/mwolff44/ansible-kamailio-mw)
+[![Galaxy](http://img.shields.io/badge/galaxy-mwolff44.ansible-kamailio-mw-blue.svg?style=flat-square)](https://galaxy.ansible.com/mwolff44/ansible-kamailio-mw)
 
 
 Ansible role for Kamailio
@@ -113,7 +113,7 @@ No
 Usage
 -----
 
-Add `mwolff44.kamailio-mw` to your roles ans setup the variables in your playbook file. Example :
+Add `mwolff44.ansible-kamailio-mw` to your roles ans setup the variables in your playbook file. Example :
 
 
     - hosts: all
@@ -137,7 +137,7 @@ Issue
 -----
 
 
-The project is managed via github. To open a new issue : [https://github.com/mwolff44/kamailio-mw/issues]
+The project is managed via github. To open a new issue : [https://github.com/mwolff44/ansible-kamailio-mw/issues]
 
 
 Author Information
