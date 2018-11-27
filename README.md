@@ -1,5 +1,4 @@
-kamailio-mw
-=============
+# kamailio-mw
 
 [![Build Status](https://travis-ci.org/mwolff44/ansible-kamailio-mw.png)](https://travis-ci.org/mwolff44/ansible-kamailio-mw)
 ![Ansible Role](https://img.shields.io/ansible/role/ansible-kamailio-mw.svg)
@@ -20,7 +19,7 @@ ansible-galaxy install ansible-kamailio-mw
 ```
   - hosts: all
     roles:
-      - ansible-asterisk16-mw
+      - ansible-kamailio-mw
 ```
 
 ### Variables
