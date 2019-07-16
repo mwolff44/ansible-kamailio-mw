@@ -1,9 +1,7 @@
 # kamailio-mw
 
 [![Build Status](https://travis-ci.org/mwolff44/ansible-kamailio-mw.png)](https://travis-ci.org/mwolff44/ansible-kamailio-mw)
-![Ansible Role](https://img.shields.io/ansible/role/ansible-kamailio-mw.svg)
 ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
-![Ansible Role](https://img.shields.io/ansible/role/d/ansible-kamailio-mw.svg)
 ![GitHub release](https://img.shields.io/github/release/mwolff44/ansible-kamailio-mw.svg)
 
 Ansible role for Kamailio (kamailio version >= 5.0)
