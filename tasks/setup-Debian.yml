@@ -33,7 +33,7 @@
 - name: Install kamailio
   apt:
     name: "{{ kamailio_packages }}"
-    state: latest
+    state: present
   notify: Restart kamailio
 
 - name: Copy kamailio configuration files.
