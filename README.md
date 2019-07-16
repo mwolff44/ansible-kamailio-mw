@@ -25,21 +25,23 @@ ansible-galaxy install ansible-kamailio-mw
 See [`defaults/main.yml`](defaults/main.yml).
 
 
-### Dependencies
+## Dependencies
 
 No
 
 
-### License
+## License
 
-Licensed under the MIT license. See the LICENSE file for details.
-
-
-### Issue
-
-The project is managed via github. To open a new issue : [https://github.com/mwolff44/ansible-kamailio-mw/issues]
+Licensed under the **MIT license**. See the LICENSE file for details.
 
 
-### Author Information
+## Issue
 
-Mathias WOLFF / [Blog des télécoms](http://www.blog-des-telecoms.com) - [PyFreeBilling](https://www.pyfreebilling.com)
+The project is managed via github.
+To open a new issue : [https://github.com/mwolff44/ansible-kamailio-mw/issues](ansible-kamailio-mw/issues).
+
+
+## Author Information
+
+Mathias WOLFF : [Blog des télécoms](https://www.blog-des-telecoms.com) - [PyFreeBilling](https://www.pyfreebilling.com)
+
