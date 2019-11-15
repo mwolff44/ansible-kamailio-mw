@@ -7,7 +7,7 @@ env:
     - ROLE_NAME: kamailio
   matrix:
     - MOLECULE_DISTRO: debian9
-    - MOLECULE_DISTRO: debian10
+    # - MOLECULE_DISTRO: debian10
 
 install:
   # Install test dependencies.
