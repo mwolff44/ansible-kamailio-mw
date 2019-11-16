@@ -4,7 +4,7 @@ debian_version: stretch
 
 # Kamailio
 kamailio_manage_repo: true
-kamailio_version: 53  # Kamailio version >= 5.0
+kamailio_version: 52  # Kamailio version >= 5.0
 kamailio_repo: 'http://deb.kamailio.org/kamailio'
 kamailio_repo_key_url: 'https://deb.kamailio.org/kamailiodebkey.gpg'
 kamailio_conf_dir: '/etc/kamailio'  # Configuration directory
