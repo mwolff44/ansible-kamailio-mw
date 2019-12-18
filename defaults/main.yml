@@ -16,8 +16,6 @@ kamailio_config_files:
     - kamctlrc
 kamailio_packages:
     - kamailio
-    - kamailio-extra-modules
-    - kamailio-postgres-modules
 
 kamailio_restart: false  # restart kamailio after update process
 
