@@ -7,14 +7,8 @@ env:
     - ROLE_NAME: kamailio
   matrix:
     - MOLECULE_DISTRO: debian10
-      - kamailio_version: 52
-      - kamailio_version: 53
     - MOLECULE_DISTRO: ubuntu1804
-      - kamailio_version: 52
-      - kamailio_version: 53
     - MOLECULE_DISTRO: debian9
-      - kamailio_version: 52
-      - kamailio_version: 53
 
 matrix:
   allow_failures:
