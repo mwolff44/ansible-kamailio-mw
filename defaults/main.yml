@@ -18,7 +18,6 @@ kamailio_packages:
     - kamailio
     - kamailio-extra-modules
     - kamailio-postgres-modules
-    - kamailio-mysql-modules
 
 kamailio_restart: false  # restart kamailio after update process
 
